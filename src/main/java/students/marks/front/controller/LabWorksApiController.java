@@ -23,9 +23,6 @@ import java.security.Principal;
 @RequestMapping("/marks_table/api")
 public class LabWorksApiController {
 
-    @Autowired
-    UserRepository test;
-
     final
     LabWorkService labWorkService;
 
@@ -65,8 +62,6 @@ public class LabWorksApiController {
         if (principal == null) {
             throw new ForbiddenException();
         }
-
-        System.out.println(test.findAll());
 
         try {
             labWorkService.deleteByLabNum(labNum);

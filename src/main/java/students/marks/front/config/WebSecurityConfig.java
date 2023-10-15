@@ -70,30 +70,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        System.out.println("!!!" + auth.toString());
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .usersByUsernameQuery("SELECT username, pass_hash FROM usr WHERE username=?");
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("{noop}user")
-                .authorities("ROLE_USER")
-                .and()
-                .withUser("admin").password("{noop}admin")
-                .authorities("ROLE_ADMIN");
+        auth.userDetailsService(userDetailsService);
     }
 
-    @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("user").password("{noop}user")
+//                .authorities("ROLE_USER")
+//                .and()
+//                .withUser("admin").password("{noop}admin")
+//                .authorities("ROLE_ADMIN");
+//    }
+
+    //@Autowired
+    //public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+    //    auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    //}
 
     // Аудит
     @Bean
@@ -101,4 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new MyAccessDeniedHandler();
     }
 
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 }

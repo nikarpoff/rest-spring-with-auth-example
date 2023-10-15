@@ -19,6 +19,12 @@ public class User {
     @Column(name = "PASS_HASH", nullable = false)
     private String passHash;
 
+    @Column(name = "ACTIVE")
+    private boolean active;
+
+    @Column(name = "ROLES")
+    private String roles;
+
     public User(Long id, String username, String passHash) {
         this.userId = id;
         this.username = username;
@@ -53,6 +59,21 @@ public class User {
         this.passHash = passHash;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
     @Override
     public boolean equals(Object o) {
