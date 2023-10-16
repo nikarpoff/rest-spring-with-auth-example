@@ -1,11 +1,9 @@
 package students.marks.front.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import students.marks.front.controller.MyAccessDeniedHandler;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

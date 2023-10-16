@@ -18,6 +18,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import students.marks.front.controller.MyAccessDeniedHandler;
 
 import javax.sql.DataSource;
+import java.security.SecureRandom;
 
 @Configuration
 @EnableWebSecurity
@@ -75,21 +76,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("user").password("{noop}user")
-//                .authorities("ROLE_USER")
-//                .and()
-//                .withUser("admin").password("{noop}admin")
-//                .authorities("ROLE_ADMIN");
-//    }
-
-    //@Autowired
-    //public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-    //    auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    //}
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 
     // Аудит
     @Bean
@@ -99,6 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        int strength = 10; // work factor of bcrypt
+        return new BCryptPasswordEncoder(strength, new SecureRandom());
     }
 }
