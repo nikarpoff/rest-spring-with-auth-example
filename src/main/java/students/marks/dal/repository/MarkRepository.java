@@ -14,7 +14,6 @@ public interface MarkRepository extends CrudRepository<Mark, Long> {
     @Query("SELECT s.name, s.id, m.markPK.lab.labNum, m.value FROM Mark m JOIN Student s ON s.id=m.markPK.student.id")
     List<Object[]> findAllStudentsWithMarksOnOneSubject();
 
-    @Transactional
     void deleteAllByMarkPKLabLabNum(int labNum);
 
 }

@@ -3,6 +3,9 @@ package students.marks.front.controller;
 import com.sun.istack.NotNull;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +22,11 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/marks_table/api")
+@AllArgsConstructor
 public class LabWorksApiController {
 
-    final
-    LabWorkService labWorkService;
 
-    public LabWorksApiController(LabWorkService labWorkService) {
-        this.labWorkService = labWorkService;
-    }
+    private final LabWorkService labWorkService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = LabWork.class))),
@@ -67,6 +67,7 @@ public class LabWorksApiController {
         } catch (DatabaseException e) {
             return new ResponseEntity<LabWork>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
 
     }
 }

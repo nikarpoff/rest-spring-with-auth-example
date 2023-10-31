@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 @Repository
 public interface LabWorkRepository extends CrudRepository<LabWork, Integer> {
 
-    @Transactional
     void deleteByLabNum(int labNum);
 
 }

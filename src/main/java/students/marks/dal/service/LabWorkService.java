@@ -1,5 +1,6 @@
 package students.marks.dal.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import students.marks.dal.repository.LabWorkRepository;
 import students.marks.dal.repository.MarkRepository;
@@ -9,21 +10,17 @@ import students.marks.dal.model.LabWork;
 import students.marks.dal.model.Mark;
 import students.marks.dal.model.Student;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class LabWorkService implements IService<LabWork> {
     private final StudentRepository studentRepository;
     private final MarkRepository markRepository;
     private final LabWorkRepository labWorkRepository;
-
-    public LabWorkService(StudentRepository studentRepository, MarkRepository markRepository, LabWorkRepository labWorkRepository) {
-        this.studentRepository = studentRepository;
-        this.markRepository = markRepository;
-        this.labWorkRepository = labWorkRepository;
-    }
 
     @Override
     public Iterable<LabWork> listAll() {
@@ -35,6 +32,7 @@ public class LabWorkService implements IService<LabWork> {
 
     }
 
+    @Transactional
     public void deleteByLabNum(int labNum) throws DatabaseException {
         try {
             labWorkRepository.deleteByLabNum(labNum);
