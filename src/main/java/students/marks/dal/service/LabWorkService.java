@@ -1,16 +1,17 @@
-package students.marks.db.service;
+package students.marks.dal.service;
 
 import org.springframework.stereotype.Service;
-import students.marks.db.dao.LabWorkRepository;
-import students.marks.db.dao.MarkRepository;
-import students.marks.db.dao.StudentRepository;
-import students.marks.db.exception.DatabaseException;
-import students.marks.model.LabWork;
-import students.marks.model.Mark;
-import students.marks.model.Student;
+import students.marks.dal.repository.LabWorkRepository;
+import students.marks.dal.repository.MarkRepository;
+import students.marks.dal.repository.StudentRepository;
+import students.marks.dal.exception.DatabaseException;
+import students.marks.dal.model.LabWork;
+import students.marks.dal.model.Mark;
+import students.marks.dal.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LabWorkService implements IService<LabWork> {
@@ -37,7 +38,7 @@ public class LabWorkService implements IService<LabWork> {
     public void deleteByLabNum(int labNum) throws DatabaseException {
         try {
             labWorkRepository.deleteByLabNum(labNum);
-            markRepository.deleteAllByMarkPKLabNum(labNum);
+            markRepository.deleteAllByMarkPKLabLabNum(labNum);
         } catch (Exception e) {
             throw new DatabaseException(e.getMessage());
         }
@@ -49,13 +50,12 @@ public class LabWorkService implements IService<LabWork> {
             LabWork addedLab = labWorkRepository.save(labWork);
 
             List<Student> students = (ArrayList<Student>) studentRepository.findAll();
-            int newLabNum = addedLab.getLabNum();
 
             for (Student student : students) {
 
                 Mark defaultMark = new Mark();
-                defaultMark.setStudentId(student.getId());
-                defaultMark.setLabNum(newLabNum);
+                defaultMark.setStudent(student);
+                defaultMark.setLab(addedLab);
 
                 markRepository.save(defaultMark);
             }
@@ -74,6 +74,16 @@ public class LabWorkService implements IService<LabWork> {
     @Override
     public LabWork findById(Long id) throws DatabaseException {
         return null;
+    }
+
+    public LabWork findByLabNum(int labNum) throws DatabaseException {
+        Optional<LabWork> labWork = labWorkRepository.findById(labNum);
+
+        if (labWork.isEmpty()) {
+            throw new DatabaseException("lab work was not found");
+        }
+
+        return labWork.get();
     }
 
 }

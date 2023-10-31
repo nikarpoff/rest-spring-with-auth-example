@@ -1,7 +1,7 @@
-package students.marks.db.service;
+package students.marks.dal.service;
 
 
-import students.marks.db.exception.DatabaseException;
+import students.marks.dal.exception.DatabaseException;
 
 public interface IService<Entity> {
 

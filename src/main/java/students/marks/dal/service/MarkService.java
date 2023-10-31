@@ -1,10 +1,10 @@
-package students.marks.db.service;
+package students.marks.dal.service;
 
 import org.springframework.stereotype.Service;
-import students.marks.db.dao.MarkRepository;
-import students.marks.db.exception.DatabaseException;
-import students.marks.model.Mark;
-import students.marks.model.MarkTable;
+import students.marks.dal.repository.MarkRepository;
+import students.marks.dal.exception.DatabaseException;
+import students.marks.dal.model.Mark;
+import students.marks.front.model.MarkTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class MarkService implements IService<Mark> {
     @Override
     public Mark update(Mark mark) throws DatabaseException {
         // FIRST - save() will check is mark new or not.
-        // IF mark is new (primary key lab+student+subject were not in DB), Hibernate will persist() new mark
+        // IF mark is new (primary key lab+student were not in DB), Hibernate will persist() new mark
         // IF mark already exists (PK exists), Hibernate will merge() data
         try {
             return repository.save(mark);

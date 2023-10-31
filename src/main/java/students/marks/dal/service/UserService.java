@@ -1,7 +1,7 @@
-package students.marks.db.service;
+package students.marks.dal.service;
 
-import students.marks.db.dao.UserRepository;
-import students.marks.model.User;
+import students.marks.dal.repository.UserRepository;
+import students.marks.dal.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

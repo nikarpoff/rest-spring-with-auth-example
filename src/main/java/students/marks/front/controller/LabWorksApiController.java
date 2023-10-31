@@ -3,15 +3,13 @@ package students.marks.front.controller;
 import com.sun.istack.NotNull;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import students.marks.db.dao.UserRepository;
-import students.marks.db.exception.DatabaseException;
-import students.marks.db.service.LabWorkService;
+import students.marks.dal.exception.DatabaseException;
+import students.marks.dal.service.LabWorkService;
 import students.marks.front.exception.ForbiddenException;
-import students.marks.model.LabWork;
+import students.marks.dal.model.LabWork;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

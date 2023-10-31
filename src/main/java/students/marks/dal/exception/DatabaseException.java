@@ -1,4 +1,4 @@
-package students.marks.db.exception;
+package students.marks.dal.exception;
 
 public class DatabaseException extends Exception {
 

@@ -1,4 +1,4 @@
-var app = angular.module('app', []);
+const app = angular.module('app', []);
 
 app.controller('mainController', function ($scope, $http) {
 
@@ -10,7 +10,7 @@ app.controller('mainController', function ($scope, $http) {
 
     $scope.labs = [];
 
-    marks = [];
+    let marks = [];
 
     $scope.mark = 0;
 
@@ -29,16 +29,16 @@ app.controller('mainController', function ($scope, $http) {
         $http.delete('/marks_table/api/students', {params: { student_id: student }, headers: csrfHeader }).then(this.successDeleteStudent, this.standartHandleError);
     };
 
-    this.changeMark = function(student, numberLab, mark) {
+    this.changeMark = function(student, labNum, mark) {
         $scope.markedStudent = student;
-        $scope.markedLabNum = numberLab;
+        $scope.markedLabNum = labNum;
         $scope.changedMarkValue = mark;
 
         $http.put('/marks_table/api/marks', {
-            mark_pk: {
-                student_id: student,
-                lab_num: numberLab
-            }, value: mark}, { headers: csrfHeader } ).then(this.successChangeMark, this.standartHandleError);
+            value: mark,
+            student_id: student,
+            lab_num: labNum
+            }, { headers: csrfHeader } ).then(this.successChangeMark, this.standartHandleError);
     };
 
     this.addLabWork = function() {
@@ -55,7 +55,7 @@ app.controller('mainController', function ($scope, $http) {
     }
 
     this.successGetMarks = function(response) {
-        marksList = response.data;
+        let marksList = response.data;
     
         marksList.forEach(item => {
             const student = $scope.students.find(s => s.value === item.student_id);
@@ -77,13 +77,13 @@ app.controller('mainController', function ($scope, $http) {
 
         $scope.students.push({ value: addedStudent.id, label: addedStudent.name });
 
-        for (lab of $scope.labs) {
+        for (let lab of $scope.labs) {
             marks.push( {studentId: addedStudent.id, labNum: lab.value, mark: 0} )
         }
     }
 
     this.successDeleteStudent = function(response) {
-        for (var i = 0; i < $scope.students.length; i++) {
+        for (let i = 0; i < $scope.students.length; i++) {
             if ($scope.students[i].value === $scope.deletedStudentId) {
                 $scope.students.splice(i, 1);
                 break;
@@ -95,7 +95,7 @@ app.controller('mainController', function ($scope, $http) {
         let newLabNum = $scope.labs.length + 1;
         $scope.labs.push({ value: newLabNum, label: 'ЛР' + newLabNum });
 
-        for (student of $scope.students) {
+        for (let student of $scope.students) {
             marks.push( {studentId: student.value, labNum: newLabNum, mark: 0} );
         }
     }
@@ -109,7 +109,7 @@ app.controller('mainController', function ($scope, $http) {
     }
 
     this.successChangeMark = function(response) {
-        for (m of marks) {
+        for (let m of marks) {
             if (m.studentId ===  $scope.markedStudent && m.labNum ===  $scope.markedLabNum) {
                 m.mark = $scope.changedMarkValue;
             }

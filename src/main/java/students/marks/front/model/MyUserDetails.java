@@ -1,16 +1,20 @@
-package students.marks.model;
+package students.marks.front.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import students.marks.dal.model.User;
 
-import javax.persistence.Column;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
+
+    @Serial
+    private final static long serialVersionUID=1L;
 
     private final String username;
     private final String passHash;

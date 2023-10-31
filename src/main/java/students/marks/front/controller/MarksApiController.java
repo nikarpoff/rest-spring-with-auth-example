@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import students.marks.db.exception.DatabaseException;
-import students.marks.db.service.MarkService;
-import students.marks.db.service.StudentService;
+import students.marks.dal.exception.DatabaseException;
+import students.marks.dal.model.LabWork;
+import students.marks.dal.model.Student;
+import students.marks.dal.service.LabWorkService;
+import students.marks.dal.service.MarkService;
+import students.marks.dal.service.StudentService;
 import students.marks.front.exception.ForbiddenException;
-import students.marks.model.Mark;
-import students.marks.model.MarkTable;
+import students.marks.dal.model.Mark;
+import students.marks.front.model.MarkTable;
 
 import java.security.Principal;
 import java.util.List;
@@ -29,9 +32,12 @@ public class MarksApiController {
 
     final StudentService studentService;
 
-    public MarksApiController(MarkService markService, StudentService studentService) {
+    final LabWorkService labWorkService;
+
+    public MarksApiController(MarkService markService, StudentService studentService, LabWorkService labWorkService) {
         this.markService = markService;
         this.studentService = studentService;
+        this.labWorkService = labWorkService;
     }
 
     @ApiResponses(value = {
@@ -58,13 +64,21 @@ public class MarksApiController {
     @RequestMapping(value = "/api/marks",
             consumes = { "application/json" },
             method = RequestMethod.PUT)
-    public ResponseEntity<Mark> updateMark(@NotNull @RequestBody Mark body, Principal principal) {
+    public ResponseEntity<Mark> updateMark(@NotNull @RequestBody MarkTable body, Principal principal) throws DatabaseException {
         if (principal == null) {
             throw new ForbiddenException();
         }
 
+        Mark changedMark = new Mark();
+
+        changedMark.setStudent(studentService.findById(body.getStudentId()));
+        changedMark.setLab(labWorkService.findByLabNum(body.getLabNum()));
+        changedMark.setValue(body.getValue());
+
+        System.out.println(changedMark.toString());
+
         try {
-            return new ResponseEntity<>(markService.add(body), HttpStatus.OK);
+            return new ResponseEntity<>(markService.update(changedMark), HttpStatus.OK);
         } catch (DatabaseException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

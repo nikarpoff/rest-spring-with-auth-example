@@ -6,10 +6,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import students.marks.db.exception.DatabaseException;
-import students.marks.db.service.StudentService;
+import students.marks.dal.exception.DatabaseException;
+import students.marks.dal.service.StudentService;
 import students.marks.front.exception.ForbiddenException;
-import students.marks.model.Student;
+import students.marks.dal.model.Student;
 
 import java.security.Principal;
 

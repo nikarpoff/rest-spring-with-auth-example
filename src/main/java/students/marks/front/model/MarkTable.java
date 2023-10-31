@@ -1,4 +1,4 @@
-package students.marks.model;
+package students.marks.front.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

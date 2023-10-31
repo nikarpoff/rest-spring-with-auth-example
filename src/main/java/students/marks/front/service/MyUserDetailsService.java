@@ -4,9 +4,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import students.marks.db.service.UserService;
-import students.marks.model.MyUserDetails;
-import students.marks.model.User;
+import students.marks.dal.service.UserService;
+import students.marks.front.model.MyUserDetails;
+import students.marks.dal.model.User;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {

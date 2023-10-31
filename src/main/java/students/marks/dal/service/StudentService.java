@@ -1,12 +1,12 @@
-package students.marks.db.service;
+package students.marks.dal.service;
 
-import students.marks.db.dao.LabWorkRepository;
-import students.marks.db.dao.MarkRepository;
-import students.marks.db.dao.StudentRepository;
-import students.marks.db.exception.DatabaseException;
-import students.marks.model.LabWork;
-import students.marks.model.Mark;
-import students.marks.model.Student;
+import students.marks.dal.repository.LabWorkRepository;
+import students.marks.dal.repository.MarkRepository;
+import students.marks.dal.repository.StudentRepository;
+import students.marks.dal.exception.DatabaseException;
+import students.marks.dal.model.LabWork;
+import students.marks.dal.model.Mark;
+import students.marks.dal.model.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,8 +49,8 @@ public class StudentService implements IService<Student> {
             for (LabWork labWork : labWorkList) {
 
                 Mark defaultMark = new Mark();
-                defaultMark.setStudentId(addedStudent.getId());
-                defaultMark.setLabNum(labWork.getLabNum());
+                defaultMark.setStudent(addedStudent);
+                defaultMark.setLab(labWork);
 
                 markRepository.save(defaultMark);
             }

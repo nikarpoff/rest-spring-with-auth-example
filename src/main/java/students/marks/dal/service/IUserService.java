@@ -1,7 +1,7 @@
-package students.marks.db.service;
+package students.marks.dal.service;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import students.marks.model.User;
+import students.marks.dal.model.User;
 
 public interface IUserService {
 

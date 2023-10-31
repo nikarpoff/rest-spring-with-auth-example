@@ -1,8 +1,8 @@
-package students.marks.db.dao;
+package students.marks.dal.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import students.marks.model.LabWork;
+import students.marks.dal.model.LabWork;
 
 import javax.transaction.Transactional;
 

@@ -66,8 +66,8 @@
                 <p>
 
                     Laboratory work number:
-                    <select ng-model='labNum'
-                            ng-options="lab.value as lab.label for lab in labs">
+                    <select ng-model='lab'
+                            ng-options="lab.value as lab.value for lab in labs">
                     </select>
 
                 <p>
@@ -77,7 +77,7 @@
 
                 <p>
 
-                    <button ng-click='mainController.changeMark(markingStudent, labNum, newMark)'>Change student's mark</button>
+                    <button ng-click='mainController.changeMark(markingStudent, lab, newMark)'>Change student's mark</button>
                 </p>
             </form>
 
